@@ -186,8 +186,6 @@ void Chuc_nang_3()
 		if (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24) printf("\nSo gio ket thuc ban nhap khong hop le! (gio ket thuc >= gio bat dau & gio ket thuc < 24)\n");
 	} while (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24);
 
-	/*
-	// cach1:
 	so_gio_da_su_dung = gio_ket_thuc - gio_bat_dau;
 	printf("\nSo gio da hat la: %d", so_gio_da_su_dung);
 
@@ -213,15 +211,6 @@ void Chuc_nang_3()
 			thanh_tien = (so_gio_ban_dau * gia_tien_cua_1_gio) + (((so_gio_da_su_dung - so_gio_ban_dau) * gia_tien_cua_1_gio) * giam_tu_gio_thu_4);
 		}
 	}
-	*/
-
-	// cach 2:
-	so_gio_da_su_dung = gio_ket_thuc - gio_bat_dau;
-	in temp = gio_bat_dau;
-	thanh_tien = gia_tien_cua_1_gio * MIN(so_gio_da_su_dung, so_gio_ban_dau);
-	so_gio_da_su_dung -= MIN(so_gio_da_su_dung, so_gio_ban_dau);
-	thanh_tien += so_gio_da_su_dung * gia_tien_cua_1_gio;
-	if (temp == 14 || temp == 15 || temp == 16 || temp == 17) thanh_tien = thanh_tien * giam_gia_trong_khoang_14_den_17;
 
 	printf("\nSo tien khach phai thanh toan:");  Resize_Num(thanh_tien); printf(" VND");
 }
@@ -311,9 +300,51 @@ void Chuc_Nang_6()
 
 //======================================================================================================
 
+void tinh_vay_tra_gop(double phantramvay)
+{
+	double phantramtratruoc = 1.0 - phantramvay;
+	double sotien = 500000000;
+	double laihangthang = 0.072 / 288;
+	int thoihan = 288;
+
+	double sotientratruoc = sotien * phantramtratruoc;
+	sotien = sotien - sotientratruoc;
+
+	double trahangthang = sotien / thoihan;
+
+	printf("So tien tra truoc: %.lf\n", sotientratruoc);
+	printf("\nSo tien tra hang thang: ");
+	//printf("\nKyhan\t   Lai phai tra\t   Goc phai tra\t  So tien phai tra\tSo tien con lai\n");
+	gotoxy(1, 6); printf("Ky han"); gotoxy(10, 6); printf("Lai phai tra");
+	gotoxy(26, 6); printf("Goc phai tra"); gotoxy(41, 6); printf("So tien phai tra");
+	gotoxy(60, 6); printf("So tien con lai\n");
+	for (int i = 1; i <= thoihan; ++i)
+	{
+		double tralai = sotien * laihangthang;
+		double tongphaitra = tralai + trahangthang;
+		sotien = sotien - trahangthang;
+		if (sotien < 1) sotien = 0;
+		gotoxy(1, i + 6); printf("%d", i); gotoxy(10, i + 6); printf("%.lf", tralai);
+		gotoxy(26, i + 6); printf("%.lf", trahangthang); gotoxy(41, i + 6); printf("%.lf", tongphaitra);
+		gotoxy(60, i + 6); printf("%.lf", sotien);
+	}
+}
+
 void Chuc_Nang_7()
 {
-	printf("\nBan vua chon chuc nang cho vay tien mua xe!\n");
+	double phantramvay;
+	do
+	{
+		printf("Nhap phan tram vay(tu 0.1 -> 1.0): ");
+		scanf("%lf", &phantramvay);
+		if (phantramvay < 0.1 || phantramvay > 1.0)
+		{
+			printf("\nSo phan tram nhap khong hop le!!\n");
+			getch();
+			system("cls");
+		}
+	} while (phantramvay < 0.1 || phantramvay > 1.0);
+	tinh_vay_tra_gop(phantramvay);
 }
 
 //======================================================================================================
