@@ -331,7 +331,7 @@ void Menu_sinh_vien()
 struct SinhVien
 {
 	char masv[10], ten[50], nganh[25], xeploai[15];
-	double dtb;
+	db dtb;
 };
 typedef struct SinhVien SINHVIEN;
 
@@ -342,7 +342,7 @@ void SWAP(SINHVIEN* a, SINHVIEN* b)
 	*b = temp;
 }
 
-void nhap_sinh_vien(SINHVIEN* sv, int n)
+void nhap_sinh_vien(SINHVIEN* sv, in n)
 {
 	printf("Nhap thong tin cho %d sinh vien\n", n);
 	getchar(); // xoa bo nho dem
@@ -382,11 +382,11 @@ void nhap_sinh_vien(SINHVIEN* sv, int n)
 	getch();
 }
 
-void sap_xep_sinh_vien(SINHVIEN* sv, int n, char luachon)
+void sap_xep_sinh_vien(SINHVIEN* sv, in n, char luachon)
 {
-	for (int i = 0; i < n - 1; ++i)
+	for (in i = 0; i < n - 1; ++i)
 	{
-		for (int j = i + 1; j < n; ++j)
+		for (in j = i + 1; j < n; ++j)
 		{
 			if (luachon == 't' || luachon == 'T')
 			{
@@ -406,7 +406,7 @@ void sap_xep_sinh_vien(SINHVIEN* sv, int n, char luachon)
 	}
 }
 
-void xuat_sinh_vien(SINHVIEN sv[], int n)
+void xuat_sinh_vien(SINHVIEN sv[], in n)
 {
 	printf("\n------------------------------------\n");
 	printf("\nThong tin cua %d sinh vien:\n", n);
@@ -416,7 +416,7 @@ void xuat_sinh_vien(SINHVIEN sv[], int n)
 	gotoxy(60, 6); printf("Diem");
 	gotoxy(70, 6); printf("Xep loai");
 
-	for (int i = 0; i < n; ++i)
+	for (in i = 0; i < n; ++i)
 	{
 		gotoxy(1, i + 7); printf("%s", sv[i].masv);
 		gotoxy(11, i + 7); printf("%s", sv[i].ten);
@@ -428,9 +428,9 @@ void xuat_sinh_vien(SINHVIEN sv[], int n)
 
 void Chuc_Nang_8()
 {
-	int so_luong_sv = 0;
+	in so_luong_sv = 0;
 	SINHVIEN ar[100];
-	int lc, check = 1;
+	in lc, check = 1;
 	while (check)
 	{
 		Menu_sinh_vien();
@@ -515,11 +515,11 @@ void Chuc_Nang_9()
 
 struct PhanSo
 {
-	int tuso, mauso;
+	in tuso, mauso;
 };
 typedef struct PhanSo PHANSO;
 
-int TimUCLN(int a, int b)
+int TimUCLN(in a, in b)
 {
 	// chi xet khi a != b, a = b return luon
 	// xet truong hop con truoc: hoac a= 0 hoac b = 0:
@@ -558,7 +558,7 @@ PHANSO tong_phan_so(PHANSO ps1, PHANSO ps2)
 	PHANSO temp;
 	temp.tuso = (ps1.tuso * ps2.mauso) + (ps2.tuso * ps1.mauso);
 	temp.mauso = ps1.mauso * ps2.mauso;
-	int rutgon = TimUCLN(temp.tuso, temp.mauso);
+	in rutgon = TimUCLN(temp.tuso, temp.mauso);
 	if (temp.tuso % rutgon == 0) temp.tuso = temp.tuso / rutgon;
 	if (temp.mauso % rutgon == 0) temp.mauso = temp.mauso / rutgon;
 	if (temp.mauso < 0)
@@ -577,7 +577,7 @@ PHANSO hieu_phan_so(PHANSO ps1, PHANSO ps2)
 	PHANSO temp;
 	temp.tuso = (ps1.tuso * ps2.mauso) - (ps2.tuso * ps1.mauso);
 	temp.mauso = ps1.mauso * ps2.mauso;
-	int rutgon = TimUCLN(temp.tuso, temp.mauso);
+	in rutgon = TimUCLN(temp.tuso, temp.mauso);
 	if (temp.tuso % rutgon == 0) temp.tuso = temp.tuso / rutgon;
 	if (temp.mauso % rutgon == 0) temp.mauso = temp.mauso / rutgon;
 	if (temp.mauso < 0)
@@ -595,7 +595,7 @@ PHANSO nhan_phan_so(PHANSO ps1, PHANSO ps2)
 	PHANSO temp;
 	temp.tuso = ps1.tuso * ps2.tuso;
 	temp.mauso = ps1.mauso * ps2.mauso;
-	int rutgon = TimUCLN(temp.tuso, temp.mauso);
+	in rutgon = TimUCLN(temp.tuso, temp.mauso);
 	if (temp.tuso % rutgon == 0) temp.tuso = temp.tuso / rutgon;
 	if (temp.mauso % rutgon == 0) temp.mauso = temp.mauso / rutgon;
 
@@ -616,7 +616,7 @@ PHANSO chia_phan_so(PHANSO ps1, PHANSO ps2)
 	temp.tuso = ps2.mauso;
 	temp.mauso = ps2.tuso;
 	ans = nhan_phan_so(ps1, temp);
-	int rutgon = TimUCLN(temp.tuso, temp.mauso);
+	in rutgon = TimUCLN(temp.tuso, temp.mauso);
 	if (ans.tuso % rutgon == 0) ans.tuso = ans.tuso / rutgon;
 	if (ans.mauso % rutgon == 0) ans.mauso = ans.mauso / rutgon;
 	if (ans.mauso < 0)
