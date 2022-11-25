@@ -211,7 +211,7 @@ void Chuc_nang_3()
 			thanh_tien = (so_gio_ban_dau * gia_tien_cua_1_gio) + (((so_gio_da_su_dung - so_gio_ban_dau) * gia_tien_cua_1_gio) * giam_tu_gio_thu_4);
 		}
 	}
-
+	
 	printf("\nSo tien khach phai thanh toan:");  Resize_Num(thanh_tien); printf(" VND");
 }
 
@@ -321,12 +321,12 @@ void tinh_vay_tra_gop(double phantramvay)
 	for (int i = 1; i <= thoihan; ++i)
 	{
 		double tralai = sotien * laihangthang;
-		double tongphaitra = tralai + trahangthang;
+		double tongphaitra = tralai + trahangthang ;
 		sotien = sotien - trahangthang;
 		if (sotien < 1) sotien = 0;
-		gotoxy(1, i + 6); printf("%d", i); gotoxy(10, i + 6); printf("%.lf", tralai);
-		gotoxy(26, i + 6); printf("%.lf", trahangthang); gotoxy(41, i + 6); printf("%.lf", tongphaitra);
-		gotoxy(60, i + 6); printf("%.lf", sotien);
+		gotoxy(1, i+6); printf("%d", i); gotoxy(10, i+6); printf("%.lf", tralai);
+		gotoxy(26, i+6); printf("%.lf",trahangthang); gotoxy(41, i+6); printf("%.lf",tongphaitra);
+		gotoxy(60, i+6); printf("%.lf",sotien);
 	}
 }
 
