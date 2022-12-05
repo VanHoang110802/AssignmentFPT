@@ -1,6 +1,12 @@
 # AssignmentFPT
 
-FULL 10 chuc nang :vv
+FULL 10 chuc nang :
+
+
+
+![bandicam 2022-12-05 14-56-38-898](https://user-images.githubusercontent.com/108053955/205583692-6da9eee8-44e6-4925-a2c5-6f5115345b70.jpg)
+
+
 
 ai dùng devc mà có lỗi :
 
