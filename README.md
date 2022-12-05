@@ -1,5 +1,10 @@
 # AssignmentFPT
 
+
+![bandicam 2022-12-05 15-00-35-932](https://user-images.githubusercontent.com/108053955/205584604-2f7fbd2b-0b32-4f0e-8be1-6d7b5126835a.jpg)
+
+
+
 FULL 10 chuc nang :
 
 
