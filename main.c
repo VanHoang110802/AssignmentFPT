@@ -24,8 +24,6 @@ const in so_gio_ban_dau = 3;
 
 ll lc;
 
-in gio_bat_dau, gio_ket_thuc, so_gio_da_su_dung, thanh_tien;
-
 void gotoxy(in x, in y)
 {
 	COORD Cursor_an_Pos = { x - 1,y - 1 };
@@ -52,7 +50,7 @@ void Menu(in color_all, in color)
 	printf("\n\t   \\ \\_\\ \\ \\_\\  \\ \\_____\\  \\ \\_\\\\*\\_\\  \\ \\_____\\");
 	printf("\n\t    \\/_/  \\/_/   \\/_____/   \\/_/ \\/_/   \\/_____/");
 
-	printf("\n");
+	colorchar(14); printf("\n\t\t\t\t\t\t\t\thoangtvph31092 :3");
 
 	colorchar(color_all); printf("\n\t++------------------------------------------------++");
 	colorchar(color_all); printf("\n\t| "); colorchar(color_row[0]); printf("Chuc nang 1: Kiem tra so nguyen"); colorchar(color_all); printf("                  |");
@@ -72,22 +70,20 @@ void Menu(in color_all, in color)
 
 //======================================================================================================
 
-void Chuc_Nang_1()
+int kt_nguyen(float x)
 {
-	db x;
-	printf("Nhap x = "); scanf("%lf", &x);
-	if (x == (in)x) printf("\nx la so nguyen");
+	if (x == (int)x) return 1;
+	else return 0;	
+}
+
+int kiem_tra_nto(float x)
+{
+	int n = (int)x;
+	if (n < 2) return 0;
+	else if (n != 2 && n % 2 == 0) return 0;
 	else
 	{
-		printf("\nx khong la so nguyen\nx khong la so nguyen to\nx khong la so chinh phuong");
-		return;
-	}
-	in n = (in)x;
-	if (n < 2) printf("\nx khong la so nguyen to");
-	else if (n != 2 && n % 2 == 0) printf("\nx khong la so nguyen to");
-	else
-	{
-		in check = 1;
+		int check = 1;
 		forxuoi(2, 3, sqrt(n))
 		{
 			if (n % i == 0)
@@ -96,36 +92,57 @@ void Chuc_Nang_1()
 				break;
 			}
 		}
-		if (check) printf("\nx la so nguyen to");
-		else printf("\nx khong la so nguyen to");
+		if (check) return 1;
+		else return 0;
 	}
-	if (x < 1) printf("\nx khong la so chinh phuong");
+}
+
+int check_cp(float x)
+{
+	if (x < 1) return 0;
 	else
 	{
-		if ((in)sqrt(x) == sqrt(x)) printf("\nx la so chinh phuong");
-		else printf("\nx khong la so chinh phuong");
+		if ((int)sqrt(x) == sqrt(x)) return 1;
+		else return 0;
 	}
+}
+
+void Chuc_Nang_1(float x)
+{
+	
+	if(kt_nguyen(x)) printf("\nx la so nguyen");
+	else
+	{
+		printf("\nx khong la so nguyen\nx khong la so nguyen to\nx khong la so chinh phuong");
+		return;
+	}
+
+	int n = (int)x;
+	if(kiem_tra_nto(x)) printf("\nx la so nguyen to");
+	else printf("\nx khong la so nguyen to");
+
+	if(check_cp(x)) printf("\nx la so chinh phuong");
+	else printf("\nx khong la so chinh phuong");
 }
 
 //======================================================================================================
 
-void Chuc_Nang_2()
+ll MAX1(ll a, ll b)
 {
-	ll a, b;
-	do
-	{
-		printf("Nhap a = "); scanf("%lld", &a);
-		if (a < 1) printf("a phai luon lon hon 0, xin hay kiem tra lai!\n");
-	} while (a < 1);
-
-	do
-	{
-		printf("Nhap b = "); scanf("%lld", &b);
-		if (b < 1) printf("b phai luon lon hon 0, xin hay kiem tra lai!\n");
-	} while (b < 1);
-
-	ll Min = a < b ? a : b;
 	ll Max = a > b ? a : b;
+	return Max;
+}
+
+ll MIN1(ll a, ll b)
+{
+	ll Min = a < b ? a : b;
+	return Min;
+}
+
+void Chuc_Nang_2(ll a, ll b)
+{
+	ll Min = MAX1(a,b);
+	ll Max = MIN1(a,b);
 	ll ucln = 0;
 
 	if (Max % Min == 0)
@@ -146,6 +163,8 @@ void Chuc_Nang_2()
 	printf("UCLN (%lld, %lld) = %lld", a, b, ucln);
 	printf("\nBCNN (%lld, %lld) = %lld", a, b, (a * b) / ucln);
 }
+
+//======================================================================================================
 
 void Resize_Num(in n)
 {
@@ -171,22 +190,11 @@ void Resize_Num(in n)
 	}
 }
 
-//======================================================================================================
 
-void Chuc_nang_3()
+in Chuc_nang_3(in gio_bat_dau, in gio_ket_thuc , in thanh_tien)
 {
-	do
-	{
-		printf("Nhap so gio bat dau: "); scanf("%d", &gio_bat_dau);
-		if (gio_bat_dau < 12 || gio_bat_dau > 24) printf("\nSo gio bat dau ban nhap khong hop le! (gio bat dau >= 12 & gio bat dau < 24)\n");
-	} while (gio_bat_dau < 12 || gio_bat_dau > 24);
-	do
-	{
-		printf("\nNhap so gio ket thuc: "); scanf("%d", &gio_ket_thuc);
-		if (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24) printf("\nSo gio ket thuc ban nhap khong hop le! (gio ket thuc >= gio bat dau & gio ket thuc < 24)\n");
-	} while (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24);
+	in so_gio_da_su_dung = gio_ket_thuc - gio_bat_dau;
 
-	so_gio_da_su_dung = gio_ket_thuc - gio_bat_dau;
 	printf("\nSo gio da hat la: %d", so_gio_da_su_dung);
 
 	if (so_gio_da_su_dung <= so_gio_ban_dau)
@@ -211,21 +219,15 @@ void Chuc_nang_3()
 			thanh_tien = (so_gio_ban_dau * gia_tien_cua_1_gio) + (((so_gio_da_su_dung - so_gio_ban_dau) * gia_tien_cua_1_gio) * giam_tu_gio_thu_4);
 		}
 	}
-
-	printf("\nSo tien khach phai thanh toan:");  Resize_Num(thanh_tien); printf(" VND");
+	return thanh_tien;
 }
 
 //======================================================================================================
 
-void Chuc_Nang_4()
+in Chuc_Nang_4(in soDien)
 {
-	in soDien, tien;
-	do
-	{
-		printf("\nNhap so dien tieu thu : "); scanf("%d", &soDien);
-		if (soDien < 1) printf("\nSo dien nhap khong hop le!\n");
-	} while (soDien < 1);
-
+	in tien;
+	
 	if (soDien <= 50) tien = soDien * 1678;
 
 	else if (soDien <= 100) tien = (50 * 1678) + ((soDien - 50) * 1734);
@@ -238,21 +240,14 @@ void Chuc_Nang_4()
 
 	else tien = (50 * 1678) + (50 * 1734) + (100 * 2014) + (100 * 2536) + (100 * 2834) + ((soDien - 400) * 2927);
 
-	printf("\nSo tien dien can phai tra la:"); Resize_Num(tien); printf(" VND");
+	return tien;
 }
 
 //======================================================================================================
 
-void Chuc_Nang_5()
+void Chuc_Nang_5(in sotiencandoi)
 {
-	in sotiencandoi, tien;
-	do
-	{
-		printf("Nhap so tien can doi: "); scanf("%d", &sotiencandoi);
-		if (sotiencandoi < 1000) printf("\nSo tien nhap khong hop le!(>1.000 VND)\n");
-	} while (sotiencandoi < 1000);
-
-	tien = sotiencandoi;
+	in tien = sotiencandoi;
 	Resize_Num(sotiencandoi);
 	printf(" se duoc doi thanh cac so to menh gia duoi day:\n");
 
@@ -283,15 +278,8 @@ void Chuc_Nang_5()
 
 //======================================================================================================
 
-void Chuc_Nang_6()
+void Chuc_Nang_6(in tien_vay)
 {
-	in tien_vay;
-	do
-	{
-		printf("Nhap so tien muon vay: "); scanf("%d", &tien_vay);
-		if (tien_vay < 1000000) printf("\nSo tien nhap khong hop le! (>= 1.000.000)\n");
-	} while (tien_vay < 1000000);
-
 	in goc_phai_tra = tien_vay / kyhan;
 
 	printf("\nKy han Lai phai tra\tGoc phai tra\tSo tien phai tra\tSo tien con lai");
@@ -314,21 +302,21 @@ void Chuc_Nang_6()
 
 void tinh_vay_tra_gop()
 {
-	float giatrixe, phantramvay, sotienvay, laisuatvay, sotienconlai, laiphaitra, sotienphaitra;
-	int nam;
+	db giatrixe, phantramvay, sotienvay, laisuatvay, sotienconlai, laiphaitra, sotienphaitra;
+	in nam;
 	do
 	{
-		printf("\nNhap so tien vay de mua xe: "); scanf("%f", &giatrixe);
+		printf("\nNhap so tien vay de mua xe: "); scanf("%lf", &giatrixe);
 		if (giatrixe < 500000000) printf("\nSo tien nhap khong hop le!\nTien vay >= 500tr");
 	} while (giatrixe < 500000000);
 	do
 	{
-		printf("\nSo phan tram vay: "); scanf("%f", &phantramvay);
+		printf("\nSo phan tram vay: "); scanf("%lf", &phantramvay);
 		if (phantramvay < 1 || phantramvay > 100) printf("\nSo phan tram nhap khong hop le (1-> 99%)");
 	} while (phantramvay < 1 || phantramvay > 100);
 	do
 	{
-		printf("\nNhap lai suat nam: "); scanf("%f", &laisuatvay);
+		printf("\nNhap lai suat nam: "); scanf("%lf", &laisuatvay);
 		if (laisuatvay < 1 || laisuatvay > 100) printf("\nSo lai suat khong hop le (1-> 99)");
 	} while (laisuatvay < 1 || laisuatvay > 100);
 	do
@@ -350,9 +338,9 @@ void tinh_vay_tra_gop()
 
 	//printf("\nSo tien phai tra ban dau: %.f\n", giatrixe * (1.0 - laisuatvay));
 
-	gotoxy(1, 6); printf("Ky han"); gotoxy(10, 6); printf("Lai phai tra");
-	gotoxy(26, 6); printf("Goc phai tra"); gotoxy(41, 6); printf("So tien phai tra");
-	gotoxy(60, 6); printf("So tien con lai\n");
+	gotoxy(1, 4); printf("Ky han"); gotoxy(10, 4); printf("Lai phai tra");
+	gotoxy(26, 4); printf("Goc phai tra"); gotoxy(41, 4); printf("So tien phai tra");
+	gotoxy(60, 4); printf("So tien con lai\n");
 
 	for (int i = 1; i <= kyhan; ++i)
 	{
@@ -361,12 +349,12 @@ void tinh_vay_tra_gop()
 		sotienconlai -= gocphaitra;
 		if (sotienconlai < 1) sotienconlai = 0;
 
-		gotoxy(1, i + 6); printf("%d", i);
-		gotoxy(10, i + 6); Resize_Num((int)laiphaitra);
+		gotoxy(2, i + 4); printf("%d", i);
+		gotoxy(10, i + 4); Resize_Num((int)laiphaitra);
 
-		gotoxy(26, i + 6); Resize_Num((int)gocphaitra);
-		gotoxy(41, i + 6); Resize_Num((int)sotienphaitra);
-		gotoxy(60, i + 6); Resize_Num((int)sotienconlai);
+		gotoxy(26, i + 4); Resize_Num((int)gocphaitra);
+		gotoxy(41, i + 4); Resize_Num((int)sotienphaitra);
+		gotoxy(60, i + 4); Resize_Num((int)sotienconlai);
 	}
 }
 
@@ -725,96 +713,192 @@ in main()
 		switch (lc)
 		{
 		case 1:
+		{
 			Menu(15, 1);
 			printf("\n");
-			Chuc_Nang_1();
+
+			db x;
+			printf("Nhap x = "); scanf("%lf", &x);
+
+			Chuc_Nang_1(x);
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 2:
+		{
 			Menu(15, 2);
 			printf("\n");
-			Chuc_Nang_2();
+			ll a, b;
+			do
+			{
+				printf("Nhap a = "); scanf("%lld", &a);
+				if (a < 1) printf("a phai luon lon hon 0, xin hay kiem tra lai!\n");
+			} while (a < 1);
+
+			do
+			{
+				printf("Nhap b = "); scanf("%lld", &b);
+				if (b < 1) printf("b phai luon lon hon 0, xin hay kiem tra lai!\n");
+			} while (b < 1);
+
+			printf("\n");
+
+			Chuc_Nang_2(a,b);
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 3:
+		{
+			in gio_bat_dau, gio_ket_thuc, so_gio_da_su_dung, thanh_tien = 0;
+
 			Menu(15, 3);
 			printf("\n");
-			Chuc_nang_3();
+			do
+			{
+				printf("Nhap so gio bat dau: "); scanf("%d", &gio_bat_dau);
+				if (gio_bat_dau < 12 || gio_bat_dau > 24) printf("\nSo gio bat dau ban nhap khong hop le! (gio bat dau >= 12 & gio bat dau < 24)\n");
+			} while (gio_bat_dau < 12 || gio_bat_dau > 24);
+			do
+			{
+				printf("\nNhap so gio ket thuc: "); scanf("%d", &gio_ket_thuc);
+				if (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24) printf("\nSo gio ket thuc ban nhap khong hop le! (gio ket thuc >= gio bat dau & gio ket thuc < 24)\n");
+			} while (gio_ket_thuc < gio_bat_dau || gio_ket_thuc > 24);
+
+			in thanhtien = Chuc_nang_3(gio_bat_dau, gio_ket_thuc,thanh_tien);
+
+			printf("\nSo tien khach phai thanh toan:");  Resize_Num(thanhtien); printf(" VND");
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 4:
+		{
 			Menu(15, 4);
 			printf("\n");
-			Chuc_Nang_4();
+			in soDien;
+			do
+			{
+				printf("\nNhap so dien tieu thu : "); scanf("%d", &soDien);
+				if (soDien < 1) printf("\nSo dien nhap khong hop le!\n");
+			} while (soDien < 1);
+
+			int tien = Chuc_Nang_4(soDien);
+			printf("\nSo tien dien can phai tra la:"); Resize_Num(tien); printf(" VND");
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 5:
+		{
 			Menu(15, 5);
 			printf("\n");
-			Chuc_Nang_5();
+
+			in sotiencandoi;
+
+			do
+			{
+				printf("Nhap so tien can doi: "); scanf("%d", &sotiencandoi);
+				if (sotiencandoi < 1000) printf("\nSo tien nhap khong hop le!(>1.000 VND)\n");
+			} while (sotiencandoi < 1000);
+
+			Chuc_Nang_5(sotiencandoi);
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 6:
+		{
 			Menu(15, 6);
 			printf("\n");
-			Chuc_Nang_6();
+
+			in tien_vay;
+			do
+			{
+				printf("Nhap so tien muon vay: "); scanf("%d", &tien_vay);
+				if (tien_vay < 1000000) printf("\nSo tien nhap khong hop le! (>= 1.000.000)\n");
+			} while (tien_vay < 1000000);
+
+			Chuc_Nang_6(tien_vay);
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 7:
+		{
 			Menu(15, 7);
 			printf("\n");
+
 			Chuc_Nang_7();
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 8:
+		{
 			Menu(15, 8);
 			printf("\n");
+
 			Chuc_Nang_8();
+
 			system("cls");
 			break;
+		}
 
 		case 9:
+		{
 			Menu(15, 9);
 			printf("\n");
+
 			Chuc_Nang_9();
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 10:
+		{
 			Menu(15, 10);
 			printf("\n");
+
 			Chuc_Nang_10();
+
 			getch();
 			system("cls");
 			break;
+		}
 
 		case 11:
+		{
 			Menu(15, 11);
 			Sleep(250);
 			system("cls");
 			return 0;
 			break;
-
+		}
 		default:
+		{
 			NhayNhayCacthu();
 			gotoxy(10, 22); printf("                              "); gotoxy(25, 20);
 			system("cls");
 			break;
+		}
 		}
 	}
 	return 0;
